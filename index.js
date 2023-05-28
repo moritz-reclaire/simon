@@ -8,8 +8,9 @@ var sequencePauseDuration = 300;
 var movePauseDuration = 100;
 var started = false;
 var h1 = "<h1>i want to play a game :)</h1>";
-var gameoverGif = "cats";
-var thegrid;
+var gifTags = "sad cats";
+var apiKey = "UceyF9wYKaOa36QGezD5vZL30ipvMkKU";
+var debugData;
 
 // when buttons are clicked
 $(".box").on("click", async function (event) {
@@ -162,13 +163,11 @@ function disableClick(button) {
 async function gameover() {
   try {
     $("h1").text("game over 🥺");
-    const gifUrl = await getGif(gameoverGif);
+    const gifUrl = await getRandomGif(gifTags);
     console.log(gifUrl); // Use the retrieved URL here
-    // $(".interact").prepend("<img src='" + gifUrl + "' alt='" + gameoverGif + "'>");
-    thegrid = $(".grid");
+    // $(".interact").prepend("<img src='" + gifUrl + "' alt='" + gifTags + "'>");
     $(".grid").hide();
-    $(".grid").after("<img src='" + gifUrl + "' alt='" + gameoverGif + "'>");
-    setImageBorderRadius();
+    $(".grid").after("<img src='" + gifUrl + "' alt='" + gifTags + "'>");
   } catch (error) {
     console.error(error); // Handle any errors that occurred during the API call
   }
@@ -183,17 +182,17 @@ async function gameover() {
   enableClick($(".button-play"));
 }
 
-function getGif(subject) {
+function getRandomGif(searchTerm) {
   return new Promise((resolve, reject) => {
     // shortcut to save api calls
     // resolve("https://media4.giphy.com/media/GeimqsH0TLDt4tScGw/giphy.gif");
     var xhr = $.get(
-      "https://api.giphy.com/v1/gifs/random?api_key=UceyF9wYKaOa36QGezD5vZL30ipvMkKU&rating=r&lang=en&tag=" + searchTerm
+      "https://api.giphy.com/v1/gifs/random?api_key=UceyF9wYKaOa36QGezD5vZL30ipvMkKU&tag=" + searchTerm + "&rating=g"
     );
     xhr.done(function (data) {
-      const gifs = data;
-      const url = data.data[0].images.original.url;
-      resolve(url);
+      debugData = data;
+      const gifUrl = data.data.images.downsized_medium.url;
+      resolve(gifUrl);
     });
     xhr.fail(function (error) {
       reject(error);
