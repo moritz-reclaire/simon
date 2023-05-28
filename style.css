@@ -68,13 +68,9 @@ h1 {
   color: #fdeea2;
   text-align: center;
 }
-@media (max-width: 500px) {
-  h1 {
-    font-family: "Major Mono Display", monospace;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #fdeea2;
-    text-align: center;
+@media (max-width: 400px) {
+  html {
+    font-size: 8pt;
   }
 }
 
