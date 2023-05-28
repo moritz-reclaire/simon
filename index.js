@@ -8,7 +8,7 @@ var sequencePauseDuration = 300;
 var movePauseDuration = 100;
 var started = false;
 var h1 = "<h1>i want to play a game :)</h1>";
-var gifTags = "cat";
+var gifTags = "sad animals";
 var apiKey = "UceyF9wYKaOa36QGezD5vZL30ipvMkKU";
 var debugData;
 var audio = [];
@@ -71,7 +71,6 @@ function hideGrid() {
 }
 
 async function nextSequence() {
-  gifUrl = await getRandomGif(gifTags);
   console.log(gifUrl);
   $("img").remove();
   showGrid(allowAnimation);
@@ -216,6 +215,7 @@ async function gameover() {
   started = false;
   sequence = [];
   pos = 0;
+  gifUrl = await getRandomGif(gifTags);
   enableClick($(".button-play"));
 }
 
@@ -244,4 +244,5 @@ $(document).ready(async function () {
   for (var i = 1; i <= 8; i++) {
     audio.push(new Audio("sounds/wrong" + i + ".mp3"));
   }
+  gifUrl = await getRandomGif(gifTags);
 });
