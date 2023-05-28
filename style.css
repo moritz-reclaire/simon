@@ -1,5 +1,6 @@
 body {
   margin-bottom: 100px;
+  background-color: #223b5d;
 }
 
 .box {
@@ -105,10 +106,6 @@ h1.font-size {
   display: grid;
   grid-template: 1fr 1fr / 1fr 1fr;
   gap: 0px;
-}
-
-body {
-  background-color: #223b5d;
 }
 
 .gameover {
