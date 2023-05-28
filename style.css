@@ -1,0 +1,134 @@
+.box {
+  aspect-ratio: 1;
+  border-radius: 20%;
+  margin: 0.5rem;
+  /* box-shadow: 0px 0px 0px 0px black; */
+  /* box-shadow: 3px 3px 1px 0px black; */
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+.green {
+  background-color: #6bcb77;
+  /* border: 0.4rem solid #284d2d; */
+}
+.green-pressed {
+  background-color: #82ff92;
+}
+
+.red {
+  background-color: #ff6b6b;
+  /* border: 0.4rem solid #552424; */
+}
+.red-pressed {
+  background-color: #ff9090;
+}
+
+.yellow {
+  background-color: #ffd93d;
+  /* border: 0.4rem solid #6f5e1b; */
+}
+.yellow-pressed {
+  background-color: #ffe372;
+}
+
+.blue {
+  background-color: #4d96ff;
+  /* border: 0.4rem solid #11233c; */
+}
+.blue-pressed {
+  background-color: #80b5ff;
+  border: 0.4rem solid #11233c;
+}
+
+.button-disabled {
+  pointer-events: none;
+}
+
+.button-dead {
+  opacity: 0.5;
+}
+
+.interact {
+  position: relative;
+  flex: 0;
+  overflow: hidden;
+  align-self: self-end;
+  height: 100%;
+  background-size: cover;
+}
+
+h1 {
+  font-family: "Major Mono Display", monospace;
+  font-size: 2rem;
+  font-weight: 500;
+  color: #fdeea2;
+  text-align: center;
+}
+
+h1.font-size {
+  font-size: 3rem;
+}
+
+.containerH {
+  display: flex;
+  justify-content: center;
+}
+
+.containerV {
+  margin: 1rem;
+  flex-basis: 500px;
+  display: grid;
+  height: 100vh;
+  gap: 1rem;
+  grid-template: 1fr 2fr 4fr 1fr 1fr/ 1fr;
+}
+
+.flex {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid {
+  aspect-ratio: 1;
+  display: grid;
+  grid-template: 1fr 1fr / 1fr 1fr;
+  gap: 0px;
+}
+
+body {
+  background-color: #223b5d;
+}
+
+.gameover {
+  background-color: rgb(192, 3, 3);
+}
+
+.button-play {
+  padding: 5%;
+  border-radius: 10px;
+  background-color: purple;
+  border: 0px;
+  font-family: "Major Mono Display", monospace;
+  font-weight: bold;
+  font-size: 2rem;
+  color: #fdeea2;
+  white-space: nowrap;
+  margin-top: 1rem;
+  /* box-shadow: 3px 3px 1px 0px black; */
+}
+
+.button-mouseover {
+  background-color: rgba(128, 0, 128, 0.56);
+}
+
+img {
+  object-fit: cover;
+  filter: grayscale();
+  width: 100%;
+  border-radius: 10px;
+}
