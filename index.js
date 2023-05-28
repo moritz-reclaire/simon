@@ -8,7 +8,7 @@ var sequencePauseDuration = 300;
 var movePauseDuration = 100;
 var started = false;
 var h1 = "<h1>i want to play a game :)</h1>";
-var gifTags = "sad cats";
+var gifTags = "sad, animals";
 var apiKey = "UceyF9wYKaOa36QGezD5vZL30ipvMkKU";
 var debugData;
 var audio = [];
