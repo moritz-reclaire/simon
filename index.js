@@ -11,6 +11,9 @@ var h1 = "<h1>i want to play a game :)</h1>";
 var gifTags = "sad cats";
 var apiKey = "UceyF9wYKaOa36QGezD5vZL30ipvMkKU";
 var debugData;
+var audio = [];
+var gifUrl;
+var animAllowed = true;
 
 // when buttons are clicked
 $(".box").on("click", async function (event) {
@@ -35,16 +38,43 @@ $("button").on("click", function () {
   nextSequence();
 });
 
-var color = {
+var toColor = {
   1: ".green",
   2: ".red",
   3: ".yellow",
   4: ".blue",
 };
 
-async function nextSequence() {
-  $("img").remove();
+var toIndex = {
+  green: 0,
+  red: 1,
+  yellow: 2,
+  blue: 3,
+};
+
+function allowAnimation() {
+  animAllowed = true;
+}
+
+function dontAllowAnimation(callback) {
+  animAllowed = false;
+  callback();
+}
+
+function showGrid(callback) {
   $(".grid").show();
+  callback();
+}
+
+function hideGrid() {
+  $(".grid").hide();
+}
+
+async function nextSequence() {
+  gifUrl = await getRandomGif(gifTags);
+  console.log(gifUrl);
+  $("img").remove();
+  showGrid(allowAnimation);
   $(".interact").html(h1);
   $("h1").addClass("font");
   $("body").removeClass("gameover");
@@ -69,16 +99,20 @@ function animateButton(button) {
     // Perform the first animation on the button
     function anim1(button) {
       return new Promise((resolve) => {
-        button.animate({ height: "+=1rem", width: "+=1rem", margin: "-=0.5rem", opacity: 1 }, zoomDuration, resolve);
+        if (animAllowed) {
+          button.animate({ height: "+=1rem", width: "+=1rem", margin: "-=0.5rem", opacity: 1 }, zoomDuration, resolve);
+        }
       });
     }
     function anim2(button) {
       return new Promise((resolve) => {
-        button.animate(
-          { height: "-=1rem", width: "-=1rem", margin: "+=0.5rem", opacity: startOpacity },
-          zoomDuration,
-          resolve
-        );
+        if (animAllowed) {
+          button.animate(
+            { height: "-=1rem", width: "-=1rem", margin: "+=0.5rem", opacity: startOpacity },
+            zoomDuration,
+            resolve
+          );
+        }
       });
     }
 
@@ -112,7 +146,7 @@ async function playSequence() {
   await delay(sequencePauseDuration);
   return new Promise(async (resolve) => {
     for (var i = 0; i < sequence.length; i++) {
-      await animateButton($(color[sequence[i]]));
+      await animateButton($(toColor[sequence[i]]));
       await delay(movePauseDuration);
     }
     enableClick("all");
@@ -123,7 +157,7 @@ async function playSequence() {
 }
 
 function checkAnswer(buttonID) {
-  var correctColor = color[sequence[pos]].slice(1, color[sequence[pos].length]);
+  var correctColor = toColor[sequence[pos]].slice(1, toColor[sequence[pos].length]);
   if (buttonID !== correctColor) {
     gameover();
     return;
@@ -140,8 +174,15 @@ function checkAnswer(buttonID) {
 }
 
 function playSound(sound) {
-  var audio = new Audio("sounds/" + sound + ".mp3");
-  audio.play();
+  audio[toIndex[sound]].currentTime = 0;
+  audio[toIndex[sound]].play();
+}
+
+function playWrong() {
+  for (var i = 4; i < 12; i++) {
+    audio[i].currentTime = 0;
+    audio[i].play();
+  }
 }
 
 function enableClick(button) {
@@ -163,19 +204,15 @@ function disableClick(button) {
 async function gameover() {
   try {
     $("h1").text("game over 🥺");
-    const gifUrl = await getRandomGif(gifTags);
-    console.log(gifUrl); // Use the retrieved URL here
     // $(".interact").prepend("<img src='" + gifUrl + "' alt='" + gifTags + "'>");
-    $(".grid").hide();
+    dontAllowAnimation(hideGrid);
     $(".grid").after("<img src='" + gifUrl + "' alt='" + gifTags + "'>");
   } catch (error) {
     console.error(error); // Handle any errors that occurred during the API call
   }
 
   $("body").addClass("gameover");
-  for (var i = 1; i <= 8; i++) {
-    playSound("wrong" + i);
-  }
+  playWrong();
   started = false;
   sequence = [];
   pos = 0;
@@ -199,3 +236,12 @@ function getRandomGif(searchTerm) {
     });
   });
 }
+$(document).ready(async function () {
+  audio.push(new Audio("sounds/green.mp3"));
+  audio.push(new Audio("sounds/red.mp3"));
+  audio.push(new Audio("sounds/yellow.mp3"));
+  audio.push(new Audio("sounds/blue.mp3"));
+  for (var i = 1; i <= 8; i++) {
+    audio.push(new Audio("sounds/wrong" + i + ".mp3"));
+  }
+});
