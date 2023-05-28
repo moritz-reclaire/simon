@@ -97,7 +97,7 @@ h1.font-size {
   display: grid;
   height: 100vh;
   gap: 1rem;
-  grid-template: 1fr 2fr 4fr 1fr 1fr/ 1fr;
+  grid-template: 0.5fr 2fr 4fr 1fr 1fr/ 1fr;
 }
 
 .flex {
