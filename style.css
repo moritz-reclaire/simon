@@ -6,11 +6,6 @@
   /* box-shadow: 3px 3px 1px 0px black; */
 }
 
-body {
-  margin: 0;
-  overflow: hidden;
-}
-
 .green {
   background-color: #6bcb77;
   /* border: 0.4rem solid #284d2d; */
@@ -63,15 +58,10 @@ body {
 
 h1 {
   font-family: "Major Mono Display", monospace;
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: bold;
   color: #fdeea2;
   text-align: center;
-}
-@media (max-width: 400px) {
-  html {
-    font-size: 8pt;
-  }
 }
 
 h2 {
@@ -97,7 +87,7 @@ h1.font-size {
   display: grid;
   height: 100vh;
   gap: 1rem;
-  grid-template: 0.5fr 2fr 4fr 1fr 1fr/ 1fr;
+  grid-template: 1fr 2fr 4fr 1fr 1fr/ 1fr;
 }
 
 .flex {
@@ -144,4 +134,18 @@ img {
   filter: grayscale();
   width: 100%;
   border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+  html {
+    font-size: 10pt;
+  }
+}
+@media (max-width: 400px) {
+  html {
+    font-size: 8pt;
+  }
+  .containerV {
+    grid-template: 0fr 2fr 4fr 1fr 1fr/ 1fr;
+  }
 }
